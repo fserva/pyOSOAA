@@ -1362,6 +1362,9 @@ class OSOAA(object):
         old_dir = os.getcwd()
         os.chdir(self.resroot)
 
+        # Make script executable
+        os.system('chmod +x script.kzh')
+
         if self.os == 'Windows':
             # Run script with ksh
             if forcerun:
@@ -1369,7 +1372,8 @@ class OSOAA(object):
         else:
             # Run script with ksh
             if forcerun:
-                os.system("ksh "+self.resroot+"/script.kzh")
+                #os.system("ksh "+self.resroot+"/script.kzh")
+                os.system("bash "+self.resroot+"/script.kzh")
 
         # read OUTPUTS
         self.outputs = OUTPUTS(self.resroot, self.results)

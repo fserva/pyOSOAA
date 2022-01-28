@@ -8,6 +8,7 @@ from io import open
 from .outputs import OUTPUTS
 import hashlib
 import platform
+from datetime import datetime
 
 
 class SEA(object):
@@ -603,6 +604,12 @@ class AP(object):
         self.mot = mot
         self.hr = hr
         self.pressure = None
+
+    def SetHa(self, ha=2.0):
+        """ Define aerosol scale height
+            ha          Aerosol scale height (km)
+        """
+        self.ha = ha
 
 
 class AEROSOLMODELS(object):
@@ -1327,7 +1334,10 @@ class OSOAA(object):
         # We hash the config file to use as folder name
         if self.customresroot is False:
             hashed = hashlib.md5(sc.encode()).hexdigest()
-            self.resroot = os.path.join(self.root, 'results', hashed)
+            #self.resroot = os.path.join(self.root, 'results', hashed)
+            now = datetime.now().strftime('%Y%m%d-%H%M%S%f')
+            self.resroot = os.path.join(self.root, 'results', now)
+
 
         if self.logfile is None:
             sc = sc+"\n"+"-OSOAA.ResRoot {}".format(self.resroot)
